@@ -1,0 +1,76 @@
+index.html
+<!--  save this file as index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Counting</title>
+    <style>
+      body {
+        text-align: center;
+        font-size: 30px;
+      }
+      #container {
+        margin: 40px auto;
+        width: 70%;
+        background-color: cornflowerblue;
+      }
+      #container-btn {
+        display: flex;
+        margin: 40px auto;
+        justify-content: space-between;
+        width: 70%;
+        background-color: cornflowerblue;
+      }
+      button {
+        padding: 15px;
+        font-size: 40px;
+
+        margin: 20px;
+      }
+      button:hover {
+        background-color: darkcyan;
+      }
+      #cnt {
+        padding: 10px;
+
+        font-size: 80px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="cnt">0</div>
+      <div id="container-btn">
+        <div>
+          <button id="-5" onclick="changecnt(event)">-5</button>
+        </div>
+        <div>
+          <button id="-1" onclick="changecnt(event)">-1</button>
+        </div>
+        <div>
+          <button id="+1" onclick="changecnt(event)">+1</button>
+        </div>
+        <div>
+          <button id="+5" onclick="changecnt(event)">+5</button>
+        </div>
+      </div>
+    </div>
+    <script>
+        let ele_block=document.getElementById("cnt");
+        let sum=0;
+        
+        
+        function changecnt(event)
+        {
+            
+        let number=Number(event.target.id);
+            console.log(number);
+            sum=sum+number;
+            ele_block.innerHTML=sum;
+        }
+    </script>
+  </body>
+</html>

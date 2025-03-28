@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays and functions</title>
+    <style>
+        h1
+        {
+            text-align: center;
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+    
+
+
+
+    <script>
+        let cities = ["Pune","Mumbai","Mahabaleshwar","Goa","Gandinagar","Banglore"];
+
+        // //for traversal
+        // document.write("<h1>cities in capital letters are </h1>")
+        // for (let  i= 0;  i< cities.length; i++) {
+        //     document.write("<h2>"+cities[i].toUpperCase()+"</h2>");            
+        // }
+        // //for traversal with having length>7 is
+        // document.write("<h1> cities having length >7 is/are </h1>")
+        // for (let  i= 0;  i< cities.length; i++) {
+        //     if (cities[i].length>7) {
+        //         document.write("<h2>"+cities[i]+"</h2>");
+                
+        //     }
+            
+        // }
+//should be in filter and map
+        let b=cities.map((data)=>data.toUpperCase());
+        b.forEach((data)=>{
+            document.write(`<h3> ${data}</h3>`);
+        });
+        document.write(`<hr>`)
+        let c=cities.filter((data)=>data.length>7)
+        c.forEach((data)=>{
+            document.write(`<h3> ${data}</h3>`);
+        });
+
+    </script>
+</body>
+</html>

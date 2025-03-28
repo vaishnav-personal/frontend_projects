@@ -1,0 +1,40 @@
+<!--  save this file as index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Radio Buttons</title>
+    <style>
+      body {
+        background-color: royalblue;
+      }
+      #container {
+        font-size: x-large;
+        color: white;
+        text-align: center;
+        margin-top: 30px;
+      }
+      #radiobtns {
+        margin: 50px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="radiobtns">
+        <input type="radio" name="bird" class="bird" onclick="showBird(1)"/>Bird1
+        <input type="radio" name="bird" class="bird"  onclick="showBird(2)"/>Bird2
+        <input type="radio" name="bird" class="bird" onclick="showBird(3)"/>Bird3
+      </div>
+      <img src="" alt="" id="birdimage" />
+    </div>
+    <script>
+         let eleImg = document.getElementById("birdimage");
+    // change src attribute of img tag
+    function showBird(id)
+    {
+
+        eleImg.src="../images/b"+id+".jpg";      
+    }
+    </script>
+  </body>
+</html>

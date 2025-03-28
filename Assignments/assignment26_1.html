@@ -1,0 +1,66 @@
+<!--  save this file as index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Ass17</title>
+    <style>
+      body {
+        background-color: royalblue;
+      }
+      #container {
+        margin: 50px;
+        font-size: x-large;
+        color: white;
+        text-align: center;
+      }
+      img {
+        margin: 20px auto;
+      }    
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="selectbird">
+        <input
+          type="checkbox"
+          name="b1"
+          value="1"
+          onclick="showImage(event)"
+        />Bird1
+        <input
+          type="checkbox"
+          name="b2"
+          value="2"
+          onclick="showImage(event)"
+        />Bird2
+        <input
+          type="checkbox"
+          name="b3"
+          value="3"
+          onclick="showImage(event)"
+        />Bird3
+      </div>
+      <div id="images" class="myborder">
+        <div><img src="../images/b1.jpg" alt="" height="200px" /></div>
+        <div><img src="../images/b2.jpg" alt="" height="200px" /></div>
+        <div><img src="../images/b3.jpg" alt="" height="200px" /></div>
+      </div>
+    </div>
+    <script>
+      let ele_Images = document.getElementsByTagName("img");
+      for (let i = 0; i < ele_Images.length; i++) {
+        ele_Images[i].style.display = "none";
+      }
+      function showImage(event) {
+        // get value of the checkbox clicked
+        // and accordingly change its display property
+        let value = event.target.value;
+        if (event.target.checked) {
+          ele_Images[value - 1].style.display = "block";
+        } else {
+          ele_Images[value - 1].style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>

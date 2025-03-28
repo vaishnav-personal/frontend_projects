@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fruits card</title>
+    <style>
+      .myborder {
+        border: 1px solid black;
+      }
+      .discount,.mrp {
+        color: red;
+      }
+      .col-3 {
+        background-color: beige;
+        box-sizing: border-box;
+      }
+      button {
+        background-color: blue;
+        border: 1px solid black;
+        border-radius: 20px;
+      }
+      button:hover {
+        background-color: dimgray;
+        color: white;
+      }
+    </style>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container py-4" id="items">
+      <div class="row">
+        <div class="col-8">
+          <div class="text-center">
+            <input
+              class="p-3 "
+              type="search"
+              size="50"
+              name=""
+              placeholder="enter fruit to search..."
+              onkeyup="act()"
+              id="ip"
+            />
+        </div>
+      </div>
+      <div "><button class="btn-btn-primary">order now</button></div>
+      <div ><button class="btn-btn-primary"> contact us</button></div>
+    </div>
+      <div class="row text-center" id="row"></div>
+      <div class="row"></div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      let productList = [
+        {
+          name: "Grapes",
+          image: "grapes.jpg",
+          unit: "kg",
+          mrp: 120,
+          discount: 10,
+          inStock: false,
+          qty: 0,
+        },
+        {
+          name: "Mango",
+          image: "mango.jpg",
+          unit: "doz",
+          mrp: 500,
+          discount: 8,
+          inStock: true,
+          qty: 0,
+        },
+        {
+          name: "Banana",
+          image: "banana.jpg",
+          unit: "doz",
+          mrp: 60,
+          discount: 0,
+          inStock: true,
+          qty: 0,
+        },
+        {
+          name: "Apple",
+          image: "apple.jpg",
+          unit: "kg",
+          mrp: 180,
+          discount: 7,
+          inStock: true,
+          qty: 0,
+        },
+        {
+          name: "Anjeer",
+          image: "anjeer.jpg",
+          unit: "kg",
+          mrp: 100,
+          discount: 0,
+          inStock: true,
+          qty: 0,
+        },
+        {
+          name: "Strawberry",
+          image: "strawberry.jpg",
+          unit: "kg",
+          mrp: 200,
+          discount: 20,
+          inStock: true,
+          qty: 0,
+        },
+        {
+          name: "Papaya",
+          image: "papaya.jpg",
+          unit: "kg",
+          mrp: 50,
+          discount: 15,
+          inStock: true,
+          qty: 0,
+        },
+        {
+          name: "Cherry",
+          image: "cherry.jpg",
+          unit: "kg",
+          mrp: 300,
+          discount: 5,
+          inStock: true,
+          qty: 0,
+        },
+        {
+          name: "Chikoo",
+          image: "chikoo.jpg",
+          unit: "kg",
+          mrp: 60,
+          discount: 5,
+          inStock: false,
+          qty: 0,
+        },
+        {
+          name: "Kiwi",
+          image: "kiwi.jpg",
+          unit: "piece",
+          mrp: 20,
+          discount: 0,
+          inStock: false,
+          qty: 0,
+        },
+        {
+          name: "Orange",
+          image: "orange.jpg",
+          unit: "kg",
+          mrp: 200,
+          discount: 10,
+          inStock: true,
+          qty: 0,
+        },
+        {
+          name: "pear",
+          image: "pear.jpg",
+          unit: "kg",
+          mrp: 200,
+          discount: 7,
+          inStock: true,
+          qty: 0,
+        },
+        {
+          name: "Pineapple",
+          image: "pineapple.jpg",
+          unit: "piece",
+          mrp: 100,
+          discount: 50,
+          inStock: true,
+          qty: 0,
+        },
+        {
+          name: "Pomegranete",
+          image: "pomegranete.jpg",
+          unit: "kg",
+          mrp: 200,
+          discount: 5,
+          inStock: true,
+          qty: 0,
+        },
+        {
+          name: "Sitaphal",
+          image: "sitaphal.jpg",
+          unit: "kg",
+          mrp: 100,
+          discount: 10,
+          inStock: true,
+          qty: 0,
+        },
+        {
+          name: "Watermelon",
+          image: "watermelon.jpg",
+          unit: "peice",
+          mrp: 80,
+          discount: 50,
+          inStock: true,
+          qty: 0,
+        },
+        {
+          name: "Sweetlime",
+          image: "sweetlime.jpg",
+          unit: "kg",
+          mrp: 200,
+          discount: 5,
+          inStock: true,
+          qty: 0,
+        },
+        {
+          name: "Peach",
+          image: "peach.jpg",
+          unit: "kg",
+          mrp: 200,
+          discount: 10,
+          inStock: false,
+          qty: 0,
+        },
+        {
+          name: "Dragon",
+          image: "dragon.jpg",
+          unit: "piece",
+          mrp: 60,
+          discount: 0,
+          inStock: true,
+          qty: 0,
+        },
+      ];
+
+      let ele_row = document.getElementById("row");
+      let ele_serach = document.getElementById("ip");
+      
+      let filteredproductlist=[...productList] ;
+             showrecord(filteredproductlist);
+      function showrecord(filteredproductlist) {
+        
+
+        let html = "";
+        filteredproductlist.forEach((e, index) => {
+        
+          if (e.inStock) {
+            decide = "<button >add to cart </button>";
+          } else {
+            decide = "<button>out of stoke</button>";
+          }
+            // ../images/mango.jpg
+          html += ` <div class="col-3 my-4 myborder">
+                  <div class="discount p-1"> Get ${e.discount} %</div>
+                    <div><img src="../images/${e.image}" alt=""></div>
+                    <div class="fs-4">${e.name}</div>
+                        <div class="mrp"> per ${e.unit} : ${e.mrp} rs</div>
+                    <div class="my-2"  > ${decide}</div>
+                    </div>  
+                `;
+                ele_row.innerHTML = html;
+        });
+      }
+
+      function act() {
+        let target = ele_serach.value;
+        console.log(target);
+        filteredproductlist=productList.filter((e,index)=>{
+         return  e.name.toLowerCase().startsWith(target.toLowerCase());
+        
+        })
+        
+        showrecord(filteredproductlist);
+      }
+    </script>
+  </body>
+</html>

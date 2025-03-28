@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <style>
+      /* .block {
+        height: 200px;
+        width: 200px;
+        background-color: black;
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center my-5">
+        <div class="col-6 text-center">
+          <button
+            class="btn btn-primary"
+            id="previous"
+            onclick="showImage('previous')"
+          >
+            Previous
+          </button>
+        </div>
+        <div class="col-6 text-center">
+          <button class="btn btn-primary" id="next" onclick="showImage('next')">
+            Next
+          </button>
+        </div>
+      </div>
+      <div class="text-center"><img id="img" src="" alt="" class="img-fluid"></div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      let alphabets = [
+        {alpha: "a",text:"A for Apple,A for Ant"},
+        {alpha: "b",text:"B for Ball,B for Bat"},
+        {alpha: "c",text:"C for Cat,C for Cup"},
+        {alpha: "d",text:"D for Dog, D for Dots"},
+        {alpha: "e",text:"E for Egg,E for Elephant"}
+    ];
+
+      let index = -1;
+      let ele_image = document.getElementById("img");
+      let ele_next = document.getElementById("next");
+      let ele_previous = document.getElementById("previous");
+           
+      function showImage(s)
+      {
+        console.log(s);
+        if (s == "next") {
+          if (index < alphabets.length - 1) 
+          index++;
+           
+        } 
+        else if (s == "previous")
+         {
+          if (index > 0) 
+          index--;
+        }
+        // ../images/a.gif
+        ed_button();
+        // console.log(alphabets[index].alpha)
+        ele_image.src="../images/"+alphabets[index].alpha+".gif";
+        let message=alphabets[index].text;
+
+       aadingvoice();
+        
+      }
+      function ed_button ()
+      {
+        if (index == 0) {
+          // previous button - disable
+          ele_previous.disabled = true;
+        } else if (index == alphabets.length - 1)
+         {
+          // next button - disable
+          ele_next.disabled =true;
+        } else {
+          // both should be enabled
+          ele_previous.disabled = false;
+          ele_next.disabled = false;
+        } 
+      }
+
+      function aadingvoice(){
+        
+        let speech=new SpeechSynthesisUtterance(message);
+        speech.lang="en-US";
+        speech.volume=1;
+        speech.rate=1;
+        speech.pitch=1;
+        window.speechSynthesis.speak(speech);
+      }
+      
+    </script>
+  </body>
+</html>
