@@ -1,0 +1,383 @@
+studentDataManageApp_toModify.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Student Management Application</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <style>
+      body {
+        color: Black;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+      }
+      h1 {
+        color: cornflowerblue;
+      }
+      button {
+        background-color: navy;
+        color: white;
+        font-size: 20px;
+      }
+      .btn-grp {
+        margin-bottom: 20px;
+      }
+      .active {
+        color: red;
+      }
+      #search {
+        margin: 10px;
+      }
+      .div-rbtn {
+        margin: 5px 30px;
+        display: inline;
+      }
+      .myborder {
+        border: 2px solid black;
+      }
+      .container-form-student {
+        margin-top: 50px;
+      }
+      .container-list {
+        margin-bottom: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="heading" className="my-3 text-primary"></h2>
+    <div className="search-options">
+      <div id="search">
+        <input type="text" name="" id="ip-txt" placeholder="Search by name/whatsApp no" />
+      </div>
+      <div className="btn-grp">
+        <div className="div-rbtn">
+          Show All<input type="radio" name="show" id="" checked />
+        </div>
+        <div className="div-rbtn">
+          Marks>=50<input type="radio" name="show" id="" />
+        </div>
+        <div className="div-rbtn">
+          Marks<50<input type="radio" name="show" id="" />
+        </div>
+        <div className="div-rbtn">passed <input type="radio" name="show" id=""></div>
+        <div className="div-rbtn">failed <input type="radio" name="show" id=""></div>
+      </div>
+    </div>
+    <h4 className="message text-center text-danger"></h4>
+    <div className="btn-container text-center">
+      <button className="btn btn-primary btn-action"></button>
+    </div>
+    <div className="container-list">
+      <div className="row align-items-center w-50 mx-auto"></div>
+    </div>
+    <div className="container-form-student w-25 mx-auto p-3">
+      <h4 className="form-heading"></h4>
+      <form onsubmit="collectFormData()">
+        <div className="row bg-primary align-items-center">
+          <div className="col-4 my-2 text-white text-end">Rollno:</div>
+          <div className="col-6 my-2">
+            <input type="text" name="" id="rollno" required />
+          </div>
+          <div className="col-4 my-2 text-white text-end">Name:</div>
+          <div className="col-6 my-2">
+            <input
+              type="text"
+              name=""
+              id="name"
+              required
+              maxlength="20"
+              minlength="4"
+            />
+          </div>
+          <div className="col-4 my-2 text-white text-end">Marks:</div>
+          <div className="col-6 my-2">
+            <input type="text" name="" id="marks" required />
+          </div>
+          <div className="col-4 my-2 text-white text-end">whatsApp:</div>
+          <div className="col-6 my-2"> <input type="text" id="whatsApp"></div>
+          <div className="col-4 my-2 text-white text-end"></div>
+          <div className="col-6 my-2">
+            <button type="submit" className="btn btn-secondary btn-add-modify">
+              Add
+            </button>
+            <button type="reset" className="btn btn-secondary btn-clear">
+              Clear
+            </button>
+          </div>
+        </div>
+        <!-- row ends -->
+      </form>
+      <!-- form ends -->
+    </div>
+    <script>
+      //get the data from local storage
+     let studentList;
+      studentList=JSON.parse(window.localStorage.getItem("studentList"));
+
+      if(studentList==null)
+    {
+      studentList=JSON.stringify([]);
+      window.localStorage.setItem("studentList",studentList);
+    }
+      
+    //call for add delete edit
+    function updateLocalStorage()
+    {
+      window.localStorage.setItem("studentList",JSON.stringify(studentList));
+    } 
+      /*[
+        { rollno: "10", name: "Satish", marks: 83.3, whatsApp: "9527454072" },
+        { rollno: "11", name: "Nutan", marks: 55.0, whatsApp: "8855047430" },
+        { rollno: "12", name: "Roopal", marks: 38.2, whatsApp: "7218652818" },
+        { rollno: "18", name: "Sahil", marks: 75.8, whatsApp: "8350232202" },
+        { rollno: "19", name: "Anish", marks: 69.6, whatsApp: "9067126923" },
+        { rollno: "20", name: "Jeevan", marks: 33.1, whatsApp: "8600090206" },
+        { rollno: "21", name: "Saurav", marks: 56.4, whatsApp: "8329809215" },
+        { rollno: "22", name: "Leena", marks: 87.5, whatsApp: "9974027326" },
+        { rollno: "23", name: "Neelam", marks: 19.2, whatsApp: "9322362877" },
+        { rollno: "25", name: "Ganesh", marks: 69.9, whatsApp: "9921771513" },
+        { rollno: "27", name: "Sarika", marks: 64.2, whatsApp: "8329809215" },
+        { rollno: "29", name: "Rohan", marks: 45.5, whatsApp: "7721991513" },
+      ];*/
+      
+      let filteredStudentList = studentList;
+      let eleBtnAction = document.querySelector(".btn-action");
+      let eleBtnAddModify = document.querySelector(".btn-add-modify");
+      let eleRadioBtns = document.querySelectorAll("input[type='radio']");
+      let eleHeading = document.getElementById("heading");
+      let eleInputSearch = document.getElementById("ip-txt");
+      let eleSearchOptions = document.querySelector(".search-options");
+      let eleListContainer = document.querySelector(".container-list");
+      let eleRow = document.querySelector(".row");
+      let eleFormContainer = document.querySelector(".container-form-student");
+      let eleFormHeading = document.querySelector(".form-heading");
+      let eleFormInputs = document.querySelectorAll(
+        ".container-form-student  input[type=text]"
+      );
+      let eleMessage = document.querySelector(".message");
+      let columnNames = ["rollno", "name", "marks","whatsApp"];
+      mode = "list";
+      displayList();
+      setMode();
+      eleInputSearch.addEventListener("keyup", function () {
+        let target = eleInputSearch.value;
+        
+        filteredStudentList = studentList.filter((e) =>
+          e.whatsApp.trim().toLowerCase().startsWith(target.toLowerCase())
+            ||e.name.trim().toLowerCase().startsWith(target.toLowerCase())
+                  
+        );
+        
+        displayList();
+      });
+      eleInputSearch.addEventListener("focus", function () {
+        if (!eleRadioBtns[0].checked) {
+          eleRadioBtns[0].checked = true;
+          filteredStudentList = studentList;
+          displayList();
+        }
+      });
+      let student;
+      eleRadioBtns.forEach(function (e, index) {
+        // if already searching is going on:
+        e.addEventListener("change", function () {
+          if (index == 0) {
+            //all
+            filteredStudentList = studentList;
+          } else if (index == 1) {
+            // marks>=50
+            filteredStudentList = studentList.filter((e) => e.marks >= 50);
+          } else if (index == 2) {
+            // marks<50
+            filteredStudentList = studentList.filter((e) => e.marks < 50);}
+            else if(index==3){
+            //passed marks>35
+            filteredStudentList=studentList.filter((e)=> e.marks>35);}
+            else if(index==4){
+            //failed marks<35
+            filteredStudentList=studentList.filter((e)=>e.marks<35);
+          }
+          displayList();
+        });
+      });
+      function displayList() {
+        let list;
+        list = filteredStudentList;
+        let html = "";
+        for (let i = 0; i < list.length; i++) {
+          html += `<div className='col-2 bg-primary text-white m1-2 p-2'> ${
+            i + 1
+          }. </div>`;
+          for (let j = 0; j < columnNames.length; j++) {
+            html += `<div className='col-2 bg-primary text-white my-1 p-2'> ${
+              list[i][columnNames[j]]
+            } </div>`;
+          } //inner for
+          html += `<div className=col-1> <button type='button' className='btn  btn-danger btn-delete'/><i className="bi bi-trash"></i></button>
+      </div>`;
+
+          html += `<div className=col-1> <button type='button' className='btn  btn-danger btn-edit' />    <i className="bi bi-pencil-square"></i></button>
+      </div>`;
+
+          html += "</div>";
+        } //outer for
+        eleRow.innerHTML = html;
+        updateStudentCount();
+        addEventListenersToButtons();
+      }
+      function updateStudentCount() {
+        eleHeading.innerHTML = `Student Data Management (${filteredStudentList.length})`;
+      }
+      function addEventListenersToButtons() {
+        eleBtnsDelete = document.querySelectorAll(".btn-delete");
+        eleBtnsEdit = document.querySelectorAll(".btn-edit");
+        eleBtnsDelete.forEach((e, index) => {
+          e.addEventListener("click", () => {
+            // delete operation for element at pos=recordNo
+            recordNo = index;
+            action = "delete";
+            performAction();
+          });
+        });
+        eleBtnsEdit.forEach((e, index) => {
+          e.addEventListener("click", () => {
+            // edit  operation for element at pos=recordNo
+            recordNo = index;
+            mode = "editing";
+            setMode();
+          });
+        });
+      }
+
+      function setMode() {
+        if (mode == "editing" || mode == "adding") {
+          eleSearchOptions.style.display = "none";
+          eleListContainer.style.display = "none";
+          eleBtnAction.innerHTML = "Show List";
+          eleFormContainer.style.display = "block";
+          if (mode == "editing") {
+            eleBtnAddModify.innerHTML = "Modify";
+            eleFormHeading.innerHTML = "Modify the Student";
+            fillForm();
+          } else if (mode == "adding") {
+            eleBtnAddModify.innerHTML = "Add";
+            eleFormHeading.innerHTML = "Add a Student";
+            clearForm();
+          }
+        } else if (mode == "list") {
+          eleSearchOptions.style.display = "block";
+          eleListContainer.style.display = "block";
+          eleFormContainer.style.display = "none";
+          eleBtnAction.innerHTML = "Add";
+          eleBtnAction.disabled = false;
+        }
+      }
+      eleBtnAction.addEventListener("click", () => {
+        // add operation
+        if (mode == "list") {
+          mode = "adding";
+          setMode();
+        } else if (mode == "adding" || mode == "editing") {
+          // modify operation
+          mode = "list";
+          displayList();
+          setMode();
+        }
+      });
+      function collectFormData() {
+        event.preventDefault();
+        getRecord();
+        if (mode == "adding") {
+          studentList.push(student);
+          updateLocalStorage();
+          updateStudentCount();
+          clearForm();
+          showMessage("Record added successfully...");
+          //keep same mode
+        } else if (mode == "editing") {
+          // modify operation
+          studentList.splice(recordNo, 1, student);
+          updateLocalStorage();
+          filteredStudentList = studentList;
+          showMessage("Record updated successfully...");
+          //change mode
+          mode = "list";
+          setMode();
+          displayList();
+        }
+      }
+      function showMessage(message) {
+        eleMessage.innerHTML = message;
+        window.setTimeout(() => (eleMessage.innerHTML = ""), 3000);
+      }
+      function fillForm() {
+        student = studentList[recordNo];
+        eleFormInputs[0].value = student.rollno;
+        eleFormInputs[1].value = student.name;
+        eleFormInputs[2].value = student.marks;
+        eleFormInputs[3].value = student.whatsApp;
+      }
+      function clearForm() {
+        for (let i = 0; i < eleFormInputs.length; i++) {
+          eleFormInputs[i].value = "";
+        }
+      }
+      function getRecord() {
+        student = {};
+        student.rollno = eleFormInputs[0].value;
+        student.name = eleFormInputs[1].value;
+        student.marks = eleFormInputs[2].value;
+        student.whatsApp=eleFormInputs[3].value;
+      }
+      function performAction() {
+        // perform add/modify/delete operations
+        if (action == "add") {
+          // perform add operation
+          //     is length of to-record is <4
+          if (checkform()) {
+            showMessage("Enter data correctly");
+          } else {
+            // add this record to toDoList
+            toDoList.push(eleInputToDo.value);
+            displayList();
+            eleInputToDo.value = "";
+            showMessage("Add operation successful...");
+          }
+        } else if (action == "delete") {
+          // perform delete operation - record number recordNo
+          let ans = window.confirm(
+            "Do you really want to delete record no. " + (recordNo + 1)
+          );
+          if (ans == false) {
+            showMessage("Delete operation is cancelled");
+          } else {
+            studentList.splice(recordNo, 1);
+            updateLocalStorage();
+            filteredStudentList = studentList;
+            showMessage("Delete operation is successful...");
+            displayList();
+          }
+        } else if (action == "modify") {
+          // perform modify operation
+          let newValue = eleInputToDo.value;
+          toDoList.splice(recordNo, 1, newValue);
+          showMessage("Edit operation is successful...");
+          mode = "adding";
+          displayList();
+          setMode();
+        }
+      }
+    </script>
+  </body>
+</html>
